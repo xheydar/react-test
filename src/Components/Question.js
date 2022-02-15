@@ -7,6 +7,7 @@ export default function Question( props )
     let language = props.language
     let question = props.question
     let register = props.register
+    let id = props.id
 
     let nparts = question.nparts
     let parts = question.parts
@@ -25,7 +26,8 @@ export default function Question( props )
                                   language={language}
                                   multi_selections={multi_selections}
                                   question_part={p}
-                                  register={register}/>
+                                  register={register}
+                                  id={ id + "/part:" + part_index }/>
                 )
             }
         </Row>

@@ -10,6 +10,7 @@ export default function QuestionPart( props )
     let language = props.language;
     let multi_selections = props.multi_selections === "yes";
     let register = props.register;
+    let id = props.id
 
     let question_title = props.question_part['title']
     let answers = props.question_part['answers']
@@ -17,8 +18,6 @@ export default function QuestionPart( props )
     let textbox = props.question_part['textbox']
     let textarea = props.question_part['textarea']
 
-    let id = index + "_" + part_index + "_"
- 
     return (
         <Row style={{ marginBottom:"30px" }} key={ id }>
             { nparts > 1 &&
@@ -36,7 +35,7 @@ export default function QuestionPart( props )
                         <Form.Check name={id} 
                                     id={ id + answer_index } 
                                     label={ a.text[language]} 
-                                    {...register(`${id}`)} 
+                                    {...register(`${id}/radio`)} 
                                     type="radio"
                                     value={answer_index} />
                     </Row>
@@ -54,7 +53,7 @@ export default function QuestionPart( props )
                                     name={id + answer_index} 
                                     id={ id + answer_index } 
                                     label={ a.text[language] } 
-                                    {...register(`${id + answer_index}`)} />
+                                    {...register(`${id + '/checkbox:' + answer_index}`)} />
                     </Row>
                 ) }
                 </Form.Group>
@@ -63,19 +62,19 @@ export default function QuestionPart( props )
 
             { range &&
               <Row style={{ marginLeft: '30px' }}>
-                <Slider range={range} name={ id } id={ id } register={register}/>
+                <Slider range={range} name={ id } id={ id + "/range" } register={register}/>
               </Row>
             }
 
             { textbox &&
               <Row style={{ marginLeft: '30px' }}>
-                <Form.Control type="text" id={ id } name={ id } {...register(`${id}`)}/>
+                <Form.Control type="text" id={ id } name={ id + "/textbox" } {...register(`${id + '/textbox' }`)}/>
               </Row>
             }
 
             { textarea &&
               <Row style={{ marginLeft: '30px' }}>
-                <Form.Control type="text" as="textarea" id={ id } name={ id } {...register(`${id}`)} />
+                <Form.Control type="text" as="textarea" id={ id } name={ id } {...register(`${id + '/textarea'}`)} />
               </Row>
             } 
         </Row>
